@@ -1,0 +1,26 @@
+class Solution {
+    public boolean searchmatrix1(int[][] matrix ,int target){
+        int n = matrix.length , m = matrix[0].length;
+        int left = 0, right = n*m - 1;
+        while(left <= right){
+            int midcell = left + (right - left)/2;
+            
+            int ridx = midcell/m;
+            int cidx = midcell%m;
+            
+            if(matrix[ridx][cidx] == target){
+                return true;
+            }
+            if(matrix[ridx][cidx] < target){
+                left = midcell + 1;
+            }else{
+                right = midcell - 1;
+            }
+        }
+        return false;
+    }
+    public boolean searchMatrix(int[][] matrix, int target) {
+        return searchmatrix1(matrix , target);
+        
+    }
+}
