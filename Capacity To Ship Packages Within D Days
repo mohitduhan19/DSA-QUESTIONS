@@ -1,0 +1,47 @@
+class Solution {
+    public boolean ispossible(int[] weights , int totalday ,int maxload){
+        int currweights = 0 , currday = 1;
+        for(int i = 0 ;i<weights.length;i++){
+            if(currweights + weights[i] <= maxload){
+                currweights += weights[i];
+            }else {
+                currday++;
+                currweights = weights[i];
+            }
+        } 
+        if(currday > totalday)return false;
+        return true;
+    }
+    public int maxofarray(int[] weights ,int days){
+        int max = 0; 
+        for(int i = 0; i<weights.length;i++){
+            max = Math.max(max , weights[i]);
+        }
+        return max;
+    }
+     public int sumofarray(int[] weights ,int days){
+        int sum = 0; 
+        for(int i = 0; i<weights.length;i++){
+            sum += weights[i]; 
+        }
+        return sum;
+    }
+    public int shipWithinDays(int[] weights, int days) {
+        int low = maxofarray(weights , days);
+        int high = sumofarray(weights , days);
+        int ans = high;
+        
+        while(low <= high){
+        int mid = low + (high - low)/2;
+        if(ispossible(weights , days, mid) == true){
+            ans = mid;
+            high = mid - 1;
+        }else{
+            low = mid + 1;
+        }
+        }
+         return ans;
+    }
+
+   
+}
