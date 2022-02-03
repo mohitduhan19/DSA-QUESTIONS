@@ -1,0 +1,41 @@
+class Solution {
+    public int maxofrow(int[] mat , int end){
+     int max = 0;
+            for(int i = 0; i < mat.length;i++){
+               if(mat[i] > mat[max]){
+                   max = i;
+               }
+            }
+            return max;
+    }
+    
+    public int[] findPeakGrid(int[][] mat) {
+        int fr =  0;
+        int lr = mat.length - 1;
+            while(lr >= fr){
+                int midrow = fr + (lr - fr)/2;
+                int rowmax = maxofrow(mat[midrow] , mat[midrow].length-1);
+                if(midrow ==0){
+                    if(mat[midrow][rowmax] > mat[midrow + 1][rowmax]){
+                        return new int []{midrow , rowmax};
+                    }
+                }
+                
+               if(midrow == mat.length-1){
+                   if(mat[midrow][rowmax] > mat[midrow-1][rowmax])return new int []{midrow , rowmax};
+               }
+                
+                if(mat[midrow][rowmax] >mat[midrow + 1][rowmax] && mat[midrow][rowmax] > mat[midrow - 1][rowmax]){
+                  return new int []{midrow , rowmax};
+                }
+                if(mat[midrow][rowmax] < mat[midrow + 1][rowmax]){
+                    fr = midrow + 1;
+                }else{
+                    lr = midrow - 1;
+                }
+                    
+    
+    }
+         return new int[]{-1 ,-1};
+}
+}
