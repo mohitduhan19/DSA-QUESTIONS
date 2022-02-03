@@ -1,0 +1,49 @@
+class Solution {
+    public int[] merge(int[] a, int [] b){
+        int [] c = new int[a.length + b.length];
+        int i = 0, j =0 , k = 0;
+        while(i <a.length && j < b.length){
+            if(a[i] <= b[j]){
+                c[k] = a[i];
+                i++;k++;
+            }else {
+                c[k] = b[j];
+                j++;k++;
+            }
+            
+        }
+        
+        while(i < a.length){
+                c[k] = a[i];
+                k++;i++;
+            }
+            while(j<b.length){
+                c[k] = b[j];
+                k++;j++;
+            }
+           return c;
+    }
+    
+    public int[] mergesort(int[] nums , int left ,int right){
+        
+         if(left == right){
+            int[] base = new int[1];
+            base[0] = nums[left];
+            return base;
+        }
+        
+        int mid = left + (right - left)/2;
+        int [] leftsorted = mergesort(nums , left ,mid);
+        int [] rightsorted = mergesort(nums ,mid + 1, right);
+          
+      
+        int[] sorted = merge(leftsorted , rightsorted);
+       return sorted;
+        
+    }
+    public int[] sortArray(int[] nums) {
+       nums = mergesort(nums,0,nums.length-1);
+        return nums;
+       
+    }
+}
