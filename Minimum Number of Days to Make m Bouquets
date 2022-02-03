@@ -1,0 +1,53 @@
+class Solution {
+    public int minDays(int[] bloomDay, int m, int k) {
+        
+        if(m * k > bloomDay.length) return -1;
+        
+        int maxDays = 0;
+        for(int i=0;i<bloomDay.length;i++){
+            maxDays = Math.max(maxDays,bloomDay[i]);
+        }
+        
+        int low = 0; 
+        int high = maxDays; 
+        
+        int minDays = Integer.MAX_VALUE; // required ans
+        
+        while(low <= high){
+            int mid = low + (high - low)/2;
+            
+            if(isPossible(bloomDay,mid,m,k) == true){
+                // if yes reduce the range check if there is 
+                // more smaller mid than calculated
+                high = mid - 1; 
+                minDays = Math.min(minDays,mid);            
+            }else{
+                low = mid + 1;
+            }
+        }
+        
+        return minDays;
+    }
+    
+    boolean isPossible(int[] bloomDays,int d,int m,int k){    
+        
+        int count = 0;
+        int nbq = 0; // no of bouquets
+        
+        for(int i=0;i<bloomDays.length;i++){
+            if(bloomDays[i] <= d)
+                count++;
+            else{
+                //to maintain adjacent constraint
+                if(count >= k){
+                    nbq += count/k; // no of bouquets till ith day
+                }
+                count = 0; // reset the count since adjancent prop is violated
+            }
+        }
+        
+        nbq += count/k; // if last day is also a valid day we never consider it in else part of above loop.
+        
+        return nbq >= m;
+    }
+}
