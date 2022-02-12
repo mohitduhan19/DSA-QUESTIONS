@@ -14,7 +14,7 @@ class Solution {
         if(i >= s.length() - 1)return i;
         
         int leftSubstring = longestSubstring(s.substring(0 , i) ,k);
-        while(i < s.length() - 1 && count.get(s.charAt(i)) < k)i++;
+        while(i < s.length()  && count.get(s.charAt(i)) < k)i++;
         int rightSubString = longestSubstring(s.substring(i) , k);
         return Math.max(leftSubstring , rightSubString);
             
