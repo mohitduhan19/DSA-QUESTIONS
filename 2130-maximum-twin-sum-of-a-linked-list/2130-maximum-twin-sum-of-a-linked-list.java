@@ -27,8 +27,8 @@ class Solution {
         }
         ans[j] = curr1.val;
         
-        for(int i = 0; i< ans.length/2;i++){
-            int sum = ans[i] + ans[ans.length - 1 - i];
+        for(int i = 0; i< size/2;i++){
+            int sum = ans[i] + ans[size- 1 - i];
             res = Math.max(res , sum);
         }
         return res;
