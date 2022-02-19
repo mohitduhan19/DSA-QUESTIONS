@@ -10,6 +10,8 @@ class Solution {
             }
           
         }
-        return j == popped.length;
+        if(j != popped.length)return false;
+        
+        return  true;
     }
 }
