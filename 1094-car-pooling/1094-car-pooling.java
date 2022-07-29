@@ -1,20 +1,20 @@
 class Solution {
     public boolean carPooling(int[][] trips, int capacity) {
-        int lastDropLocation = 0;
-        for(int[]trip : trips){
-            lastDropLocation = Math.max(lastDropLocation , trip[2]);
-        }
+        TreeMap<Integer , Integer> changes = new TreeMap<>();
         
-        int[] highway = new int[lastDropLocation + 1];
-        for(int[] trip : trips){
-            highway[trip[1]] += trip[0];
-            highway[trip[2]] -= trip[0];
+        for(int i = 0; i < trips.length;i++){
+            int pass = trips[i][0];
+            int start = trips[i][1];
+            int end = trips[i][2];
+            changes.put(start , changes.getOrDefault(start , 0) + pass);
+            changes.put(end , changes.getOrDefault(end , 0) - pass);
         }
-        int passengers = 0;
-        for(int i = 0; i < highway.length;i++){
-            passengers += highway[i];
-            if(passengers > capacity)return false;
-        }
+        int currpass = 0;
+        for(Integer key : changes.keySet()){
+            Integer val = changes.get(key);
+            currpass += val;
+            if(currpass > capacity)return false;
+      }
         return true;
     }
 }
