@@ -1,16 +1,16 @@
 class Solution {
-    public void FindAllParenthesis(String curr , int open , int close , List<String>res , int n){
+    public void paran(List<String> ans , String curr , int open , int close , int n){
         if(curr.length() == 2*n){
-            res.add(curr);
-            return;
+            ans.add(curr);
+            return ;
         }
-        if(open < n)FindAllParenthesis(curr + "(" , open + 1 , close ,res , n);
-        if(close < open)FindAllParenthesis(curr + ")" , open , close + 1 , res , n);
-        
+        if(open < n)paran(ans , curr + '(' , open + 1 , close , n);
+        if(close < open)paran(ans , curr + ')' , open , close + 1 , n);
     }
     public List<String> generateParenthesis(int n) {
-        List<String> res = new ArrayList();
-        FindAllParenthesis("(" , 1 , 0 , res, n);
-        return res;
+        List<String> ans = new ArrayList<>();
+        int open = 1 , close = 0;
+        paran(ans , "(" , open , close , n);
+        return ans;
     }
 }
