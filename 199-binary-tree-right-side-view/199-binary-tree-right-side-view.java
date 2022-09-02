@@ -13,31 +13,21 @@
  *     }
  * }
  */
-class Solution 
-{
-    public List<Integer> rightSideView(TreeNode root) 
-    {
-        Queue<TreeNode> que = new ArrayDeque<>();
-        ArrayList<Integer> ans = new ArrayList<>();
-        if(root == null)
-        {
-            return ans;
-        }
-        que.add(root);
-        while (que.size() != 0) 
-        {
-            int size = que.size();
-            ans.add(que.peek().val);
-            while (size-- > 0) 
-            {
-                TreeNode rn = que.remove();
-
-                if (rn.right != null)
-                    que.add(rn.right);
-                if (rn.left != null)
-                    que.add(rn.left);
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        if(root == null) return new ArrayList<>();
+        Queue<TreeNode> q = new ArrayDeque<>();
+        q.add(root);
+        while(q.size() != 0){
+            int size = q.size();
+            ans.add(q.peek().val);
+            while(size-- > 0){
+                
+                TreeNode node = q.remove();
+                if(node.right != null)q.add(node.right);
+                if(node.left != null)q.add(node.left);
             }
-
         }
         return ans;
     }
