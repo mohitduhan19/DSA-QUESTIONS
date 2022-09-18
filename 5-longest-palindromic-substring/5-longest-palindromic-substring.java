@@ -1,25 +1,28 @@
 class Solution {
-    public int expandAroundCenter(String s , int left , int right){
-        while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
-            left--;right++;
-        }
-        int maxlen = right - left - 1;
-        return maxlen;
-    }
     public String longestPalindrome(String s) {
-            if (s == null || s.length() < 1) return "";
-    int start = 0, end = 0;
-    for (int i = 0; i < s.length(); i++) {
-        //odd
-        int len1 = expandAroundCenter(s, i, i);
-        //even
-        int len2 = expandAroundCenter(s, i, i + 1);
-        int len = Math.max(len1, len2);
-        if (len > end - start) {
-            start = i - (len - 1) / 2;
-            end = i + len / 2;
+        boolean[][] dp = new boolean[s.length()][s.length()];
+        int len = 0;
+        int x = -1 , y = -1;
+        for(int gp = 0;gp < s.length();gp++){
+            for(int i = 0 , j = gp;j < s.length();i++,j++){
+                if(gp == 0){
+                    dp[i][j] = true;
+                }else if(gp == 1){
+                    if(s.charAt(i) == s.charAt(j)) dp[i][j] = true;
+                    else  dp[i][j] = false;
+                }else{
+                     if(s.charAt(i) == s.charAt(j) && dp[i + 1][j - 1] == true){
+                         dp[i][j] = true;
+                     }else{
+                          dp[i][j] = false;
+                     }
+                }
+                if(dp[i][j]){
+                   x = i;
+                    y = j;
+                }
+            }
         }
-    }
-    return s.substring(start, end + 1);
+      return s.substring(x ,  y + 1);
     }
 }
