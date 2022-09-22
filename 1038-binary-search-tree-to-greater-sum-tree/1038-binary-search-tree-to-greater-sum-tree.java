@@ -14,20 +14,16 @@
  * }
  */
 class Solution {
-     int sum = 0;
+    int sum = 0;
     public TreeNode bstToGst(TreeNode root) {
-        sum = 0;
-        return bstToGstHelper(root);
-    }
-    public TreeNode bstToGstHelper(TreeNode root){
+        
         if(root == null)return null;
+         bstToGst(root.right);
+         int od = root.val;
+         root.val = sum + root.val;
+         sum += od;
+         bstToGst(root.left);
         
-        root.right = bstToGstHelper(root.right);
-        
-        sum += root.val;
-        root.val = sum;
-        
-        root.left = bstToGstHelper(root.left);
         return root;
     }
 }
