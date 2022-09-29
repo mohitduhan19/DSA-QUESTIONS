@@ -1,22 +1,11 @@
 class Solution {
     public int missingNumber(int[] nums) {
-        int i = 0;
-         
-        while(i < nums.length){
-           int idx = nums[i];
-            if(nums[i] < nums.length && nums[i] != nums[idx]){
-                int temp = nums[i];
-                nums[i] = nums[idx];
-                nums[idx] = temp;
-            }else{
-                i++;
-            }
+        int x  = nums.length;
+       long nsum = x*(x + 1)/2;
+        long sum = 0;
+        for(int i = 0; i < nums.length;i++){
+            sum += nums[i];
         }
-        for(int index = 0; index < nums.length;index++){
-            if(nums[index] != index){
-                return index;
-            }
-        }
-        return nums.length;
+        return (int)nsum - (int)sum;
     }
 }
